@@ -8,3 +8,9 @@ __pycache__
 .DS_Store
 *~
 deploy.sh
+
+bitiodine.log
+bitiodine_server
+deploy/blockparser-original/
+deploy/blockparser/
+
