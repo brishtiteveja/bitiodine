@@ -1,16 +1,17 @@
 #!/bin/sh
 
 # Stop bitcoind
-bitcoin-cli stop && sleep 10
+bcli stop && sleep 10
 
 # Create a lock file used by BitIodine server to abort restarts
 touch /tmp/bitiodine_update_in_progress
 
 TIMESTAMP=`date --rfc-3339=seconds`
-cd ~/bitiodine/
+BITIODINE_HOME=/scratch2/azehady/projects
+cd $BITIODINE_HOME/bitiodine/
 echo "$TIMESTAMP Updating..." >> bitiodine.log
 
-cd ~/bitiodine/deploy/blockparser/
+cd $BITIODINE_HOME/bitiodine/deploy/blockparser/
 ./parser sql && cd ../clusterizer && ./clusterizer.py --generate-clusters && ./clusterizer.py --csv && cd ../server
 
 # Send QUIT command to existing instances
@@ -22,7 +23,7 @@ TIMESTAMP=`date --rfc-3339=seconds`
 echo "$TIMESTAMP Updated." >> ../../bitiodine.log
 
 # Restart bitcoind
-bitcoind
+bqtd -datadir=/scratch2/azehady/data/bit
 
 # Remove lock file
 rm -f /tmp/bitiodine_update_in_progress

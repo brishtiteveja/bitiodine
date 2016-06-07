@@ -73,7 +73,7 @@ static double getMem() {
 
 #if defined BITCOIN
     static const size_t gHeaderSize = 80;
-    static auto kCoinDirName = ".bitcoin";
+    static auto kCoinDirName = "bit";//".bitcoin";
     static const uint32_t gExpectedMagic = 0xd9b4bef9;
 #endif
 
@@ -925,7 +925,7 @@ static std::string getNormalizedDirName(
 static std::string getBlockchainDir() {
     auto dir = getenv("BLOCKCHAIN_DIR");
     if(0==dir) {
-        dir = getenv("HOME");
+        dir = "/scratch2/azehady/data";//getenv("HOME");
         if(0==dir) {
             errFatal("please  specify either env. variable HOME or BLOCKCHAIN_DIR");
         }
